@@ -1,0 +1,64 @@
+html,
+body
+{
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #000000;
+}
+body {
+	display: flex;
+	flex-flow: column;
+}
+.map {
+  	flex: 1 1 auto;
+}
+.leaflet-control-zoom:first-child {
+    display: none;
+}
+.leaflet-control-layers,
+.leaflet-control-measure,
+.leaflet-control-filelayer
+{
+    background-color: #fff !important;
+    border: 1px solid rgba(0,0,0,0.4) !important;
+    border-radius: 5px !important;
+}
+.leaflet-control-measure:hover,
+.leaflet-control-filelayer:hover
+{
+    background-color: #f4f4f4 !important;
+}
+.leaflet-control-layers a,
+.leaflet-control-measure a,
+.leaflet-control-filelayer a
+{
+    background-color: unset !important;
+    width: 30px !important;
+    height: 30px !important;
+}
+.leaflet-control-layers a:hover,
+.leaflet-control-measure a:hover,
+.leaflet-control-filelayer a:hover
+{
+    background-color: unset !important;
+}
+/* layers control ********************************/
+.leaflet-control-layers-toggle {
+    background-size: 20px 20px;
+}
+.leaflet-control-layers-list {
+    user-select: none;
+}
+/* scale control ********************************/
+.leaflet-control-scale-line {
+    user-select: none;
+}
+.leaflet-control-scale-line:nth-child(2) {
+    display: none;
+}
+.leaflet-control-attribution a,
+.leaflet-control-attribution span {
+    display: none;
+}

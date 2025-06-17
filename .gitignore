@@ -1,0 +1,7 @@
+disk_images/
+stuff/
+releases/
+build
+dist
+*.spec
+_backup.rar
