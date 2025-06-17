@@ -1,10 +1,10 @@
 # OpenTopoGermany
 
-The actual purpose of this repository is not the code of the little demo app for Windows and macOS written in Python, but to provide the following [disk_images](https://github.com/59de44955ebd/OpenTopoGermany/releases/tag/disk_images) for download:
+The actual purpose of this repository is not the code of the little demo app for Windows and macOS written in Python, but to provide the following [disk images](https://github.com/59de44955ebd/OpenTopoGermany/releases/tag/disk_images) for download:
 
-- [tiles_germany_otm_13.img.vhd.zip](https://github.com/59de44955ebd/OpenTopoGermany/releases/download/disk_images/tiles_germany_otm_13.img.vhd.zip) (1.95 GB) - [OpenTopoMap](https://opentopomap.org/) tiles of Germany 
+- [tiles_germany_otm_13.img.vhd.zip](https://github.com/59de44955ebd/OpenTopoGermany/releases/download/disk_images/tiles_germany_otm_13.img.vhd.zip) (1.95 GB) - [OpenTopoMap](https://opentopomap.org/) raster tiles of Germany 
 
-- [tiles_germany_trails_13.img.vhd.zip](https://github.com/59de44955ebd/OpenTopoGermany/releases/download/disk_images/tiles_germany_trails_13.img.vhd.zip) (393 MB) - [Lonvia](https://github.com/waymarkedtrails) cycling and hiking trail overlay tiles of Germany
+- [tiles_germany_trails_13.img.vhd.zip](https://github.com/59de44955ebd/OpenTopoGermany/releases/download/disk_images/tiles_germany_trails_13.img.vhd.zip) (393 MB) - [Lonvia](https://github.com/waymarkedtrails) cycling and hiking trail overlay raster tiles of Germany
 
 Both disk images are raw ".img" (dd) images with an additional VHD footer which also makes them valid .vhd files. Therfore they can be mounted directly both in Windows 10/11 and macOS simply by double-clicking them in Explorer resp. Finder (or by selecting "Mount..." from the context menu). To make the images macOS/Finder-compatible just remove the trailing ".vhd" from their filenames so that they have the extension ".img" instead. Finder/hdiutil doesn't mind the additional VHD footer and just ignores it.
 
