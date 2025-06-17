@@ -40,6 +40,6 @@ Demo app "Simple Offline Viewer" in Windows 11
 Demo app "Simple Offline Viewer" in macOS 13   
 ![](screenshots/viewer-macos-13.jpg)
 
-## ToDOs
+## ToDos
 
 OpenTopoMap shows a few more details in zoom level 14, but a corresponding tile disk image would require about 7.3 GB, and GitHub only allows up to 2 GB for each file attached to a release. Maybe I could split it into 4 separate parts that then have to be combined after the download.
