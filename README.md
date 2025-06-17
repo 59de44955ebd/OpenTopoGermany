@@ -6,7 +6,7 @@ The actual purpose of this repository is not the code of the little demo app for
 
 - [tiles_germany_trails_13.img.vhd.zip](https://github.com/59de44955ebd/OpenTopoGermany/releases/download/disk_images/tiles_germany_trails_13.img.vhd.zip) (393 MB) - [Lonvia](https://github.com/waymarkedtrails) cycling and hiking trail overlay raster tiles of Germany
 
-Both disk images are raw ".img" (dd) images with an additional VHD footer which also makes them valid .vhd files. Therfore they can be mounted directly both in Windows 10/11 and macOS simply by double-clicking them in Explorer resp. Finder (or by selecting "Mount..." from the context menu). To make the images macOS/Finder-compatible just remove the trailing ".vhd" from their filenames so that they have the extension ".img" instead. Finder/hdiutil doesn't mind the additional VHD footer and just ignores it.
+Both disk images are raw ".img" (dd) images with an additional VHD footer which also makes them valid .vhd files. Therefore they can be mounted easily both in Windows 10/11 and macOS simply by double-clicking them in Explorer resp. Finder (or by selecting "Mount..." from the context menu). To make the images macOS/Finder-compatible just remove the trailing ".vhd" from their filenames so that they have the extension ".img" instead. Finder/hdiutil doesn't mind the additional VHD footer and just ignores it.
 
 The disk images have a FAT32 filesystem that contains downloaded/cached raster tiles (.png) for entire Germany up to zoom level 13 (which corresponds to about 1:50.000 in traditional paper maps). The tiles are meant for
 usage in **webview-based but offline applications**, like e.g. a hiking (planning) app that also works when a user can't rely on a stable internet connection.
