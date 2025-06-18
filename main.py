@@ -68,21 +68,26 @@ class App():
     def find_tile_dirs(self):
         if IS_WIN:
             for drive in os.listdrives():
-                tiles_dir = (drive + 'tiles').replace('\\', '/')
+                tiles_dir = (drive + 'tiles')
                 if os.path.isdir(tiles_dir):
                     for dir_name in os.listdir(tiles_dir):
-                        self.webview.run_js(f"add_layer('{dir_name}', 'file:///{tiles_dir}/{dir_name}');")
+                        levels = [int(d) for d in os.listdir(os.path.join(tiles_dir, dir_name))]
+                        maxNativeZoom = max(levels)
+                        tiles_dir = tiles_dir.replace('\\', '/')
+                        self.webview.run_js(f"add_layer('{dir_name}', 'file:///{tiles_dir}/{dir_name}', {maxNativeZoom});")
         else:
             self.symlinks = []
             for vol in os.listdir('/Volumes'):
                 tiles_dir = f'/Volumes/{vol}/tiles'
                 if os.path.isdir(tiles_dir):
                     for dir_name in os.listdir(tiles_dir):
+                        levels = [int(d) for d in os.listdir(os.path.join(tiles_dir, dir_name))]
+                        maxNativeZoom = max(levels)
                         # To make tiles on mounted disk images accessible for the web server
                         # we have to create symbolic links in the local tiles dir
                         os.system(f'ln -s "{tiles_dir}/{dir_name}" "{RES_DIR}/tiles/{dir_name}" 2>/dev/null')
                         self.symlinks.append(f'{RES_DIR}/tiles/{dir_name}')
-                        self.webview.run_js(f"add_layer('{dir_name}', 'tiles/{dir_name}');")
+                        self.webview.run_js(f"add_layer('{dir_name}', 'tiles/{dir_name}', {maxNativeZoom});")
 
 
 if __name__ == '__main__':

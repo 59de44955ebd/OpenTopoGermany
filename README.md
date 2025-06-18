@@ -2,7 +2,7 @@
 
 The actual purpose of this repository is not the code of the little demo app for Windows and macOS written in Python, but to provide the following [disk images](https://github.com/59de44955ebd/OpenTopoGermany/releases/tag/disk_images) for download:
 
-- [tiles_germany_otm_13.img.vhd.zip](https://github.com/59de44955ebd/OpenTopoGermany/releases/download/disk_images/tiles_germany_otm_13.img.vhd.zip) (1.95 GB) - [OpenTopoMap](https://opentopomap.org/) raster tiles of Germany 
+- [tiles_germany_otm_13.img.vhd.zip](https://github.com/59de44955ebd/OpenTopoGermany/releases/download/disk_images/tiles_germany_otm_13.img.vhd.zip) (1.7 GB) - [OpenTopoMap](https://opentopomap.org/) raster tiles of Germany 
 
 - [tiles_germany_trails_13.img.vhd.zip](https://github.com/59de44955ebd/OpenTopoGermany/releases/download/disk_images/tiles_germany_trails_13.img.vhd.zip) (393 MB) - [Lonvia](https://github.com/waymarkedtrails) cycling and hiking trail overlay raster tiles of Germany
 
@@ -11,7 +11,7 @@ Both disk images are raw ".img" (dd) images with an additional VHD footer which 
 The disk images have a FAT32 filesystem that contains downloaded/cached raster tiles (.png) for entire Germany up to zoom level 13 (which corresponds to about 1:50.000 in traditional paper maps). The tiles are meant for
 usage in **webview-based but offline applications**, like e.g. a hiking (planning) app that also works when a user can't rely on a stable internet connection.
 
-Map/tile providers generally don't like users to mass download tiles from their servers, but sometimes you have no other choice if the provider doesn't offer a complete dump e.g. as .zip file. So that's the purpose of this repository, to reduce the load of those providers. In addition, given the overhead of HTTP requests, downloading a single large image file is surely much more efficient than downloading hundreds of thousands individual .png files, so this also saves energy/climate.
+Map/tile providers generally don't like users to mass download tiles from their servers, but sometimes you have no other choice if the provider doesn't offer a complete dump e.g. as .zip file. So that's the purpose of this repository, to reduce the load of those providers. In addition, given the overhead of HTTP requests, downloading a single large disk image file is surely much more efficient than downloading hundreds of thousands individual .png files, so this propably also saves energy/climate.
 
 ## Demo app
 

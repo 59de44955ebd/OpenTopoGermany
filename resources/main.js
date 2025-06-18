@@ -5,7 +5,6 @@ const base_layers = {
 		// 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
 	    '',
 	    {
-	        maxNativeZoom: 13,
 	        maxZoom: 20,
 	        attribution: 'map_data: © OpenStreetMap contributers, SRTM | map_style: © OpenTopoMap (CC-BY-SA)',
 	    }
@@ -17,7 +16,6 @@ const overlay_layers = {
 		// 'https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png',
 	    '',
 	    {
-	        maxNativeZoom: 13,
 	        maxZoom: 20,
 	    }
 	),
@@ -25,10 +23,16 @@ const overlay_layers = {
 		// 'https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png',
 	    '',
 	    {
-	        maxNativeZoom: 13,
 	        maxZoom: 20,
 	    }
-	)
+	),
+	openseamap: L.tileLayer(
+		// 'https://t1.openseamap.org/seamark/{z}/{x}/{y}.png',
+		'',
+	    {
+	        maxZoom: 20,
+	    }
+	),
 };
 
 let zoom = 12,
@@ -98,16 +102,18 @@ window.addEventListener('pywebviewready', () => {
 
 let layers_control_added = false;
 
-function add_layer(name, path)
+function add_layer(name, path, maxNativeZoom)
 {
 	if (base_layers[name])
 	{
 		base_layers[name].setUrl(path + '/{z}/{x}/{y}.png', false);
+		base_layers[name].options.maxNativeZoom = maxNativeZoom;	 
 		map.addLayer(base_layers[name]);
 	}
 	else if (overlay_layers[name])
 	{
 	    overlay_layers[name].setUrl(path + '/{z}/{x}/{y}.png', true);
+	    overlay_layers[name].options.maxNativeZoom = maxNativeZoom;	    
 	    layers_control.addOverlay(overlay_layers[name], name.charAt(0).toUpperCase() + name.slice(1));
 		if (!layers_control_added)
 		{
