@@ -57,9 +57,9 @@ Usage:
 
 Features:
 
-- View a topographic map of entire Germany without requiring an internet connection. This only requires the otm image to be mounted.
+- View a topographic map of entire Germany without requiring an internet connection. This only requires the otm disk image to be mounted.
 - Toggle fullscreen mode with F11
-- If the trails image is also mounted, you can show/hide cycling and/or hiking trails using the control in the top right corner.
+- If overlay disk images are mounted as well you can show/hide cycling and/or hiking trails using the control in the top right corner.
 - Distances can be measured using the measure control in the top left corner.
 - .gpx tracks can be loaded either by dropping them into the application window or clicking on the ".gpx" control.
 
