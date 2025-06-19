@@ -1,40 +1,6 @@
 'use strict';
 
-const base_layers = {
-	otm: L.tileLayer(
-		// 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
-	    '',
-	    {
-	        maxZoom: 20,
-	        attribution: 'map_data: © OpenStreetMap contributers, SRTM | map_style: © OpenTopoMap (CC-BY-SA)',
-	    }
-	),
-};
-
-const overlay_layers = {
-	cycling: L.tileLayer(
-		// 'https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png',
-	    '',
-	    {
-	        maxZoom: 20,
-	    }
-	),
-	hiking: L.tileLayer(
-		// 'https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png',
-	    '',
-	    {
-	        maxZoom: 20,
-	    }
-	),
-	openseamap: L.tileLayer(
-		// 'https://t1.openseamap.org/seamark/{z}/{x}/{y}.png',
-		'',
-	    {
-	        maxZoom: 20,
-	    }
-	),
-};
-
+// Arbitrary defaults (Berlin)
 let zoom = 12,
     lat = 52.51350476109457,
     lng = 13.409671783447267;
@@ -102,19 +68,33 @@ window.addEventListener('pywebviewready', () => {
 
 let layers_control_added = false;
 
-function add_layer(name, path, maxNativeZoom)
+function add_layer(name, path, maxNativeZoom, is_base)
 {
-	if (base_layers[name])
-	{
-		base_layers[name].setUrl(path + '/{z}/{x}/{y}.png', false);
-		base_layers[name].options.maxNativeZoom = maxNativeZoom;	 
-		map.addLayer(base_layers[name]);
+	if (is_base)
+	{		
+		map.addLayer(
+			L.tileLayer(
+				path + '/{z}/{x}/{y}.png',
+			    {
+			    	maxNativeZoom: maxNativeZoom,
+			        maxZoom: 20,
+			    }
+			),
+			name.charAt(0).toUpperCase() + name.slice(1)
+		);
 	}
-	else if (overlay_layers[name])
+	else
 	{
-	    overlay_layers[name].setUrl(path + '/{z}/{x}/{y}.png', true);
-	    overlay_layers[name].options.maxNativeZoom = maxNativeZoom;	    
-	    layers_control.addOverlay(overlay_layers[name], name.charAt(0).toUpperCase() + name.slice(1));
+		layers_control.addOverlay(
+			L.tileLayer(
+				path + '/{z}/{x}/{y}.png',
+			    {
+			    	maxNativeZoom: maxNativeZoom,
+			        maxZoom: 20,
+			    }
+			),
+			name.charAt(0).toUpperCase() + name.slice(1)
+		);
 		if (!layers_control_added)
 		{
 			layers_control.addTo(map);

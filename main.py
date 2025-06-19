@@ -66,6 +66,7 @@ class App():
     #
     ########################################
     def find_tile_dirs(self):
+        base_layers = ['otm']  # might contain more base layer names
         if IS_WIN:
             for drive in os.listdrives():
                 tiles_dir = (drive + 'tiles')
@@ -74,7 +75,7 @@ class App():
                         levels = [int(d) for d in os.listdir(os.path.join(tiles_dir, dir_name))]
                         maxNativeZoom = max(levels)
                         tiles_dir = tiles_dir.replace('\\', '/')
-                        self.webview.run_js(f"add_layer('{dir_name}', 'file:///{tiles_dir}/{dir_name}', {maxNativeZoom});")
+                        self.webview.run_js(f"add_layer('{dir_name}', 'file:///{tiles_dir}/{dir_name}', {maxNativeZoom}, {int(dir_name in base_layers)});")
         else:
             self.symlinks = []
             for vol in os.listdir('/Volumes'):
@@ -87,7 +88,7 @@ class App():
                         # we have to create symbolic links in the local tiles dir
                         os.system(f'ln -s "{tiles_dir}/{dir_name}" "{RES_DIR}/tiles/{dir_name}" 2>/dev/null')
                         self.symlinks.append(f'{RES_DIR}/tiles/{dir_name}')
-                        self.webview.run_js(f"add_layer('{dir_name}', 'tiles/{dir_name}', {maxNativeZoom});")
+                        self.webview.run_js(f"add_layer('{dir_name}', 'tiles/{dir_name}', {maxNativeZoom}, {int(dir_name in base_layers)});")
 
 
 if __name__ == '__main__':
