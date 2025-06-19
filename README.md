@@ -49,13 +49,13 @@ Map/tile providers generally don't like users to mass download tiles from their 
 
 Its purpose is to demonstrate how those disk images can be used in a desktop app. The app scans all mounted (virtual) disks/volumes and looks for a "tiles" directory directly in their root directory. If found, a subdirectory called "otm" is used for the base layer and subdirectories called "cycling" and "hiking" for the overlay layers. Obviously this could easily be extended to support additional base and overlay layers provided by other mounted disk images.
 
-Usage:
+### Usage:
 
 - Mount either the level 14 or level 13 otm disk image, and optionally also one or both corresponding trail overlay disk image(s).
 - Run "simple-offline-viewer.exe" in Windows resp. "simple-offline-viewer.app" in macOS.
 - If you mounted a disk image after starting the application, select "Reload" from the webview's context menu to make the application aware of the new offline tile source.
 
-Features:
+### Features:
 
 - View a topographic map of entire Germany without requiring an internet connection. This only requires the otm disk image to be mounted.
 - Toggle fullscreen mode with F11
