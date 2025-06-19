@@ -24,6 +24,8 @@ else:
     else:
         APP_DIR = os.path.dirname(os.path.realpath(__file__))
         RES_DIR = os.path.realpath(os.path.join(APP_DIR, 'resources'))
+        if not os.path.isdir(os.path.join(RES_DIR, 'tiles')):
+            os.mkdir(os.path.join(RES_DIR, 'tiles'))
     START_URL = os.path.join(RES_DIR, 'index.htm')
 
 
@@ -72,7 +74,7 @@ class App():
                 tiles_dir = (drive + 'tiles')
                 if os.path.isdir(tiles_dir):
                     for dir_name in os.listdir(tiles_dir):
-                        levels = [int(d) for d in os.listdir(os.path.join(tiles_dir, dir_name))]
+                        levels = [int(d) for d in os.listdir(os.path.join(tiles_dir, dir_name)) if d.isnumeric()]
                         maxNativeZoom = max(levels)
                         tiles_dir = tiles_dir.replace('\\', '/')
                         self.webview.run_js(f"add_layer('{dir_name}', 'file:///{tiles_dir}/{dir_name}', {maxNativeZoom}, {int(dir_name in base_layers)});")
@@ -82,7 +84,7 @@ class App():
                 tiles_dir = f'/Volumes/{vol}/tiles'
                 if os.path.isdir(tiles_dir):
                     for dir_name in os.listdir(tiles_dir):
-                        levels = [int(d) for d in os.listdir(os.path.join(tiles_dir, dir_name))]
+                        levels = [int(d) for d in os.listdir(os.path.join(tiles_dir, dir_name)) if d.isnumeric()]
                         maxNativeZoom = max(levels)
                         # To make tiles on mounted disk images accessible for the web server
                         # we have to create symbolic links in the local tiles dir
