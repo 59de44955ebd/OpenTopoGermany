@@ -1,8 +1,10 @@
 # OpenTopoGermany
 
-The actual purpose of this repository is not the code of the little demo app for Windows and macOS written in Python, but to provide the [disk images](https://github.com/59de44955ebd/OpenTopoGermany/releases/tag/disk_images) listed below for download. The disk images contain raster tiles (.png) of [OpenTopoMap](https://opentopomap.org/) and [Lonvia](https://github.com/waymarkedtrails) cycling/hiking trail overlays for entire Germany up to zoom level 14 resp. 13. Those tiles are meant for usage in **webview-based but offline applications**, like e.g. a hiking (planning) app that also works when a user can't rely on a stable internet connection.
+The actual purpose of this repository is not the code of the little cross-platform demo app written in Python, but to provide the [disk images](https://github.com/59de44955ebd/OpenTopoGermany/releases/tag/disk_images) listed below for download. The disk images contain raster tiles (.png) of [OpenTopoMap](https://opentopomap.org/) and [Lonvia](https://github.com/waymarkedtrails) cycling/hiking trail overlays for entire Germany up to zoom level 14 resp. 13. Those tiles are meant for usage in **webview-based but offline applications**, like e.g. a hiking (planning) app that also works when a user can't rely on a stable internet connection.
 
-All disk images are raw ".img" (dd) images with a FAT32 filesystem and an additional VHD footer which also makes them valid .vhd files. Therefore they can be mounted easily both in Windows 10/11 and macOS simply by double-clicking them in Explorer resp. Finder (or by selecting "Mount..." from the context menu). To make the images macOS/Finder-compatible just remove the trailing ".vhd" from their filenames so that they have the extension ".img" instead. Finder/hdiutil doesn't mind the additional VHD footer and just ignores it.
+All disk images are raw ".img" (dd) images with a FAT32 filesystem and an additional VHD footer which also makes them valid .vhd files. Therefore they can be mounted easily both in Windows 10/11 and macOS simply by double-clicking them in Explorer resp. Finder (or by selecting "Mount..." from the context menu). Mounting via double-click also works in Desktop Linux if your have `gnome-disk-image-mounter` installed (Debian: `sudo apt install gnome-disk-utility`).
+
+To make the disk images macOS- and Linux-compatible just remove the trailing ".vhd" from their filenames so that they have the extension ".img" instead. Neither Finder/hdiutil nor disk-image-mounter mind the additional VHD footer, they just ignore it.
 
 Map/tile providers generally don't like users to mass download tiles from their servers, but sometimes you have no other choice if the provider doesn't offer a complete dump e.g. as .zip file. So that's the purpose of this repository, to reduce the load of those providers. In addition, given the overhead of HTTP requests, downloading a single large disk image file is surely much more efficient than downloading hundreds of thousands individual .png files, so this propably also saves energy/climate.
 
@@ -27,7 +29,7 @@ Map/tile providers generally don't like users to mass download tiles from their 
   copy /b tiles_germany_otm_14.img.vhd.part1of4.zip + tiles_germany_otm_14.img.vhd.part2of4.zip + tiles_germany_otm_14.img.vhd.part3of4.zip + tiles_germany_otm_14.img.vhd.part4of4.zip tiles_germany_otm_14.img.vhd.zip
   ```
 
-  macOS (Terminal):
+  macOS (Terminal) or Linux:
   ```
   cat tiles_germany_otm_14.img.vhd.part*.zip > tiles_germany_otm_14.img.vhd.zip
   ```
@@ -45,14 +47,24 @@ Map/tile providers generally don't like users to mass download tiles from their 
 
 ## Demo app
 
-"Simple Offline Viewer" is a simple and lightweight demo desktop application for Windows and macOS. It's written in Python and based on [pywebview](https://github.com/r0x0r/pywebview) and [Leaflet](https://leafletjs.com/).
+"Simple Offline Viewer" is a simple and lightweight demo desktop application written in Python and based on [pywebview](https://github.com/r0x0r/pywebview) and [Leaflet](https://leafletjs.com/).
 
 Its purpose is to demonstrate how those disk images can be used in a desktop app. The app scans all mounted (virtual) disks/volumes and looks for a "tiles" directory directly in their root directory. If found, a subdirectory called "otm" is used for the base layer and subdirectories called "cycling" and "hiking" for the overlay layers. Obviously this could easily be extended to support additional base and overlay layers provided by other mounted disk images.
+
+For Windows and macOS standalone ("frozen") binaries (`simple-offline-viewer.exe` resp. `simple-offline-viewer.app`) are provided that don't depend on a local Python installation. 
+
+In Linux you need Python 3 and pywebview properly installed. The app might then be "installed" like this:
+```
+# For Linux:
+$ git clone https://github.com/59de44955ebd/OpenTopoGermany
+$ cd OpenTopoGermany
+$ ln -s "$(realpath main.py)" ~/.local/bin/simple-offline-viewer
+```
 
 ### Usage:
 
 - Mount either the level 14 or level 13 otm disk image, and optionally also one or both corresponding trail overlay disk image(s).
-- Run "simple-offline-viewer.exe" in Windows resp. "simple-offline-viewer.app" in macOS.
+- Run `simple-offline-viewer`.
 - If you mounted a disk image after starting the application, select "Reload" from the webview's context menu to make the application aware of the new offline tile source.
 
 ### Features:

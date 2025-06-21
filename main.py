@@ -11,7 +11,7 @@ IS_LINUX = sys.platform == 'linux'
 IS_FROZEN = getattr(sys, "frozen", False)
 
 if IS_WIN or IS_LINUX:
-    APP_DIR = os.path.dirname(os.path.abspath(__file__))
+    APP_DIR = os.path.dirname(os.path.realpath(__file__))
     # In Windows and Linux there is no need for starting a web server, file URLs work perfectly fine
     START_URL = 'file:///' + os.path.join(APP_DIR, 'resources', 'index.htm')
 else:
@@ -59,7 +59,7 @@ class App():
         if IS_WIN or IS_LINUX:
             webview.settings['OPEN_DEVTOOLS_IN_DEBUG'] = False
         self.webview.events.before_load += lambda: webview.logger.setLevel('CRITICAL')
-        webview.start(debug=True)  #, server_args={'quiet': True})
+        webview.start(debug=True, icon=os.path.join(APP_DIR, 'app.png') if IS_LINUX else None)  #, server_args={'quiet': True})
 
     ########################################
     #
@@ -77,6 +77,7 @@ class App():
                         self.webview.run_js(f"add_layer('{dir_name}', 'file:///{tiles_dir}/{dir_name}', {maxNativeZoom}, {int(dir_name in base_layers)});")
 
         elif IS_LINUX:
+            # Assumes disk images were mounted with gnome-disk-image-mounter ($ sudo apt install gnome-disk-utility)
             mount_dir = '/media/' + os.environ["USER"]
             for vol in os.listdir(mount_dir):
                 tiles_dir = f'{mount_dir}/{vol}/tiles'
