@@ -6,16 +6,13 @@ APP_NAME = 'Simple Offline Viewer'
 
 IS_WIN = sys.platform == 'win32'
 IS_MAC = sys.platform == 'darwin'
-
-if not IS_WIN and not IS_MAC:
-    print('Sorry, Linux not supported yet.')
-    sys.exit(1)
+IS_LINUX = sys.platform == 'linux'
 
 IS_FROZEN = getattr(sys, "frozen", False)
 
-if IS_WIN:
+if IS_WIN or IS_LINUX:
     APP_DIR = os.path.dirname(os.path.abspath(__file__))
-    # In Windows there is no need for starting a web server, file URLs work perfectly fine
+    # In Windows and Linux there is no need for starting a web server, file URLs work perfectly fine
     START_URL = 'file:///' + os.path.join(APP_DIR, 'resources', 'index.htm')
 else:
     if IS_FROZEN:
@@ -59,10 +56,10 @@ class App():
     ########################################
     def run(self):
         webview.settings['ALLOW_FILE_URLS'] = True
-        if IS_WIN:
+        if IS_WIN or IS_LINUX:
             webview.settings['OPEN_DEVTOOLS_IN_DEBUG'] = False
         self.webview.events.before_load += lambda: webview.logger.setLevel('CRITICAL')
-        webview.start(debug=True, server_args={'quiet': True})
+        webview.start(debug=True)  #, server_args={'quiet': True})
 
     ########################################
     #
@@ -78,6 +75,17 @@ class App():
                         maxNativeZoom = max(levels)
                         tiles_dir = tiles_dir.replace('\\', '/')
                         self.webview.run_js(f"add_layer('{dir_name}', 'file:///{tiles_dir}/{dir_name}', {maxNativeZoom}, {int(dir_name in base_layers)});")
+
+        elif IS_LINUX:
+            mount_dir = '/media/' + os.environ["USER"]
+            for vol in os.listdir(mount_dir):
+                tiles_dir = f'{mount_dir}/{vol}/tiles'
+                if os.path.isdir(tiles_dir):
+                    for dir_name in os.listdir(tiles_dir):
+                        levels = [int(d) for d in os.listdir(os.path.join(tiles_dir, dir_name)) if d.isnumeric()]
+                        maxNativeZoom = max(levels)
+                        self.webview.run_js(f"add_layer('{dir_name}', 'file:///{tiles_dir}/{dir_name}', {maxNativeZoom}, {int(dir_name in base_layers)});")
+
         else:
             self.symlinks = []
             for vol in os.listdir('/Volumes'):
