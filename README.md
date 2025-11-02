@@ -45,6 +45,10 @@ Map/tile providers generally don't like users to mass download tiles from their 
 
 - [tiles_germany_hiking_13.img.vhd.zip](https://github.com/59de44955ebd/OpenTopoGermany/releases/download/disk_images/tiles_germany_hiking_13.img.vhd.zip) (247 MB) - hiking trail overlay raster tiles of Germany
 
+## Convert to ISO/Joliet
+
+If you prefer to use read-only .iso images instead of the original .vhd disk images, in Windows you can mount a .vhd image in Explorer and then run batch script [make_iso.cmd](make_iso/make_iso.cmd). The batch script will ask you for the mounted .vhd's drive letter and then use provided MS utility `OSCDIMG` to create an ISO 9660/Joliet .iso image in the script's folder with the same contents as the original .vhd image.
+
 ## Demo app
 
 "Simple Offline Viewer" is a simple and lightweight demo desktop application written in Python and based on [pywebview](https://github.com/r0x0r/pywebview) and [Leaflet](https://leafletjs.com/).
