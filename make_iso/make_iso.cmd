@@ -12,7 +12,7 @@ if "%OUTPUT%"=="" goto :eof
 REM Get the last token
 for %%A in (%OUTPUT%) do set VOLNAME=%%A
 
-oscdimg -j2 -o -m %LETTER%:\ "%VOLNAME%.iso"
+oscdimg -j2 -o -m -l%VOLNAME% %LETTER%:\ "%VOLNAME%.iso"
 
 goto :eof
 
